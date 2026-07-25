@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电商美工作品集 | E-commerce Art Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --off-white: #f7f6f3;
+            --dark-black: #1A1A1A;
+            --gray-mid: #888888;
+            --gray-light: #dddddd;
+            --gray-fade: #eeeeee;
+            --line-thin: 0.5px;
+        }
+
+        body {
+            background: var(--off-white);
+            color: var(--dark-black);
+            overflow-x: hidden;
+            position: relative;
+            background-image: 
+                radial-gradient(#ddd 0.5px, transparent 0.5px),
+                linear-gradient(to right, rgba(200,200,200,0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(200,200,200,0.06) 1px, transparent 1px);
+            background-size: 22px 22px, 45px 45px, 45px 45px;
+            background-attachment: fixed;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 68%, rgba(0,0,0,0.04) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .float-geometry-wrap {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .float-shape {
+            position: absolute;
+            opacity: 0.09;
+            filter: drop-shadow(-3px 0 rgba(0,0,0,0.07));
+            animation: floatLift 12s ease-in-out infinite alternate;
+        }
+
+        .circle-float {
+            width: 120px;
+            height: 120px;
+            border: var(--line-thin) solid var(--gray-mid);
+            border-radius: 50%;
+            top: 22vh;
+            left: 8%;
+            animation-delay: -2s;
+        }
+
+        .tri-float {
+            width: 0;
+            height: 0;
+            border-left: 70px solid transparent;
+            border-right: 70px solid transparent;
+            border-bottom: 110px solid var(--gray-light);
+            top: 65vh;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        .line-float {
+            width: 180px;
+            height: 0.5px;
+            background: var(--gray-mid);
+            top: 40vh;
+            right: 20%;
+            animation-delay: -7s;
+        }
+
+        @keyframes floatLift {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-40px) translateX(12px); }
+        }
+
+        .page-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 12vw;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            border-bottom: var(--line-thin) solid var(--dark-black);
+            padding: 32px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .logo-handwrite {
+            font-family: "Segoe Script", cursive;
+            font-size: 26px;
+            letter-spacing: 2px;
+            color: var(--dark-black);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--gray-mid);
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 1px;
+            background: var(--dark-black);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--dark-black);
+        }
+
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+        }
+
+        #searchInput {
+            padding: 10px 14px;
+            width: 240px;
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #333;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        #searchInput:focus {
+            border-color: #111;
+        }
+
+        #searchBtn {
+            padding: 10px 18px;
+            background: #111;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        #searchBtn:hover {
+            background: #333;
+        }
+
+        .particle-wave-top {
+            margin: 64px 0 80px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .particle-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--dark-black);
+            border-radius: 50%;
+            animation: waveParticle 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes waveParticle {
+            0% { transform: translateY(0); opacity: 0.3; }
+            50% { transform: translateY(-24px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 0.3; }
+        }
+
+        /* 简历双栏布局：简历+技能板块，消除空白 */
+        .resume-section {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 48px;
+            margin-bottom: 90px;
+        }
+
+        .resume-card {
+            background: #fff;
+            padding: 40px 32px;
+            border: var(--line-thin) solid var(--gray-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .resume-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .silhouette-avatar {
+            width: 110px;
+            height: 140px;
+            background: var(--dark-black);
+            clip-path: polygon(45% 0, 85% 22%, 90% 75%, 60% 100%, 10% 100%, 0 60%, 10% 20%);
+            margin: 0 auto 24px;
+        }
+
+        .resume-name {
+            font-size: 24px;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .download-resume {
+            display: inline-block;
+            margin: 16px 0;
+            padding: 12px 30px;
+            background: #111;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .download-resume:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        .timeline-vertical {
+            border-left: var(--line-thin) solid var(--gray-mid);
+            padding-left: 20px;
+            margin-left: 12px;
+        }
+
+        .timeline-item {
+            margin-bottom: 22px;
+        }
+
+        .timeline-year {
+            font-size: 13px;
+            color: var(--gray-mid);
+            letter-spacing: 1px;
+        }
+
+        .timeline-desc {
+            font-size: 14px;
+            margin-top: 4px;
+            line-height: 1.6;
+        }
+
+        /* 右侧技能填充板块，解决空白 */
+        .skill-panel {
+            background: #fff;
+            padding: 40px 36px;
+            border: var(--line-thin) solid var(--gray-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-panel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .skill-panel h3 {
+            font-size: 20px;
+            margin-bottom: 24px;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .skill-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .skill-item {
+            padding: 14px 16px;
+            background: var(--gray-fade);
+            font-size: 14px;
+            color: var(--dark-black);
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background: #e9e9e9;
+        }
+
+        .skill-note {
+            margin-top: 24px;
+            font-size: 13px;
+            color: var(--gray-mid);
+            line-height: 1.8;
+        }
+
+        .section-title {
+            font-size: 22px;
+            margin: 80px 0 28px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #ddd;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        /* ========== 适配750px垂直长图核心样式 ========== */
+        .product-banner-section {
+            margin-bottom: 100px;
+        }
+        /* 容器宽度适中，专门适配750px竖版详情长图 */
+        .wide-banner-wrap {
+            width: 48%;
+            margin: 0 auto;
+            /* 取消固定横屏比例，高度自适应750px竖长图 */
+            overflow: visible;
+            position: relative;
+            border-radius: 2px;
+            background: #fff;
+            border: 1px solid var(--gray-light);
+            padding: 12px;
+        }
+        .wide-banner-img {
+            width: 100%;
+            /* contain完整显示750px竖长图，不拉伸、不裁切 */
+            object-fit: contain;
+            display: block;
+            transition: transform 0.4s ease-out;
+            /* 保留商品原图色彩，无灰度滤镜 */
+            filter: none;
+        }
+        .wide-banner-wrap:hover .wide-banner-img {
+            transform: scale(1.02);
+        }
+        .product-caption {
+            text-align: center;
+            color: #666;
+            margin-top: 16px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 小红书拼贴板块 */
+        .magazine-grid-section {
+            margin-bottom: 120px;
+        }
+
+        .collage-grid {
+            display: grid;
+            grid-template-areas:
+                "big small1"
+                "big small2";
+            gap: 28px;
+            grid-template-columns: 1.6fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            min-height: 420px;
+        }
+
+        .collage-card {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.6s ease;
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .collage-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-big {
+            grid-area: big;
+        }
+
+        .card-small1 {
+            grid-area: small1;
+        }
+
+        .card-small2 {
+            grid-area: small2;
+        }
+
+        .collage-img {
+            width: 100%;
+            height: 72%;
+            object-fit: cover;
+            display: block;
+            filter: none;
+            transition: transform 0.4s ease;
+        }
+
+        .collage-card:hover .collage-img {
+            transform: scale(1.03);
+        }
+
+        .collage-text {
+            padding: 20px;
+        }
+
+        .collage-num {
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .collage-desc {
+            font-size: 14px;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        /* 图片弹窗 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.88);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-box {
+            max-width: 90%;
+            max-height: 90vh;
+            animation: scaleIn 0.3s ease;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #fff;
+            font-size: 32px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        .contact input,
+        .contact textarea {
+            width: 100%;
+            margin: 8px 0;
+            padding: 12px;
+            border: 1px solid #ddd;
+            background: #fff;
+            color: #333;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact input:focus,
+        .contact textarea:focus {
+            border-color: #111;
+        }
+
+        .contact button {
+            margin-top: 12px;
+            padding: 12px 32px;
+            background: #111;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .contact button:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: #111;
+            color: #999;
+            text-align: center;
+            padding: 30px;
+            margin-top: 80px;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        .hide {
+            display: none !important;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 992px) {
+            .resume-section {
+                grid-template-columns: 1fr;
+            }
+
+            .collage-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "big"
+                    "small1"
+                    "small2";
+            }
+
+            .nav-menu {
+                gap: 20px;
+            }
+
+            .page-container {
+                padding: 0 6vw;
+            }
+            /* 平板端放大商品容器，完整显示750px长图 */
+            .wide-banner-wrap {
+                width: 70%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            #searchInput {
+                width: 100%;
+            }
+            /* 手机端100%宽度完整展示竖长详情图 */
+            .wide-banner-wrap {
+                width: 100%;
+            }
+
+            .skill-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 大图弹窗 -->
+    <div class="modal" id="imgModal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-box" id="modalImg" alt="大图预览">
+    </div>
+
+    <!-- 漂浮装饰几何层 -->
+    <div class="float-geometry-wrap">
+        <div class="float-shape circle-float"></div>
+        <div class="float-shape tri-float"></div>
+        <div class="float-shape line-float"></div>
+    </div>
+
+    <div class="page-container">
+        <header id="header">
+            <div class="header-wrap">
+                <a href="#" class="logo-handwrite">E-commerce Art</a>
+                <nav class="nav-menu">
+                    <a href="#resume" class="active">个人简历</a>
+                    <a href="#banner">商品详情作品</a>
+                    <a href="#magazine">小红书排版</a>
+                    <a href="#contact">联系我</a>
+                </nav>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="搜索作品">
+                    <button id="searchBtn">搜索</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="particle-wave-top">
+            <div class="particle-dot" style="animation-delay:0s;"></div>
+            <div class="particle-dot" style="animation-delay:-0.3s;"></div>
+            <div class="particle-dot" style="animation-delay:-0.6s;"></div>
+            <div class="particle-dot" style="animation-delay:-0.9s;"></div>
+            <div class="particle-dot" style="animation-delay:-1.2s;"></div>
+            <div class="particle-dot" style="animation-delay:-1.5s;"></div>
+            <div class="particle-dot" style="animation-delay:-1.8s;"></div>
+            <div class="particle-dot" style="animation-delay:-2.1s;"></div>
+            <div class="particle-dot" style="animation-delay:-2.4s;"></div>
+            <div class="particle-dot" style="animation-delay:-2.7s;"></div>
+            <div class="particle-dot" style="animation-delay:-3s;"></div>
+            <div class="particle-dot" style="animation-delay:-3.3s;"></div>
+            <div class="particle-dot" style="animation-delay:-3.6s;"></div>
+            <div class="particle-dot" style="animation-delay:-3.9s;"></div>
+            <div class="particle-dot" style="animation-delay:-4.2s;"></div>
+            <div class="particle-dot" style="animation-delay:-4.5s;"></div>
+            <div class="particle-dot" style="animation-delay:-4.8s;"></div>
+            <div class="particle-dot" style="animation-delay:-5.1s;"></div>
+            <div class="particle-dot" style="animation-delay:-5.4s;"></div>
+            <div class="particle-dot" style="animation-delay:-5.7s;"></div>
+            <div class="particle-dot" style="animation-delay:-6s;"></div>
+            <div class="particle-dot" style="animation-delay:-6.3s;"></div>
+            <div class="particle-dot" style="animation-delay:-6.6s;"></div>
+            <div class="particle-dot" style="animation-delay:-6.9s;"></div>
+            <div class="particle-dot" style="animation-delay:-7.2s;"></div>
+            <div class="particle-dot" style="animation-delay:-7.5s;"></div>
+        </div>
+
+        <!-- 简历+技能双栏，右侧不再空白 -->
+        <section class="resume-section" id="resume">
+            <div class="resume-card">
+                <div class="silhouette-avatar"></div>
+                <h2 class="resume-name">你的姓名</h2>
+
+                <a class="download-resume" href="resume.pdf" download>下载完整PDF简历</a>
+
+                <div class="timeline-vertical">
+                    <div class="timeline-item">
+                        <div class="timeline-year">XXXX - XXXX</div>
+                        <p class="timeline-desc">填写当前工作/实习岗位<br>工作内容描述</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">XXXX - XXXX</div>
+                        <p class="timeline-desc">上一段工作经历<br>负责的设计工作</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">XXXX - XXXX</div>
+                        <p class="timeline-desc">学习/专业经历<br>掌握软件、设计技能</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 填充空白的技能板块 -->
+            <div class="skill-panel">
+                <h3>技能与工具</h3>
+                <div class="skill-list">
+                    <div class="skill-item">PS产品精修</div>
+                    <div class="skill-item">电商详情排版</div>
+                    <div class="skill-item">主图设计</div>
+                    <div class="skill-item">活动海报</div>
+                    <div class="skill-item">小红书图文</div>
+                    <div class="skill-item">极简版式</div>
+                    <div class="skill-item">色彩调整</div>
+                    <div class="skill-item">素材整理</div>
+                </div>
+                <div class="skill-note">
+                    熟悉淘宝/拼多多750px标准详情尺寸，可独立完成竖版长图全套设计、产品精修、场景排版与营销图文制作。
+                </div>
+            </div>
+        </section>
+
+        <!-- 适配750px垂直长图展示区 -->
+        <h2 class="section-title" id="banner">商品详情长图作品（750px标准竖版）</h2>
+        <section class="product-banner-section">
+            <div class="wide-banner-wrap">
+                <!-- 750px垂直长图完整自适应，无裁切拉伸 -->
+                <img class="wide-banner-img" src="xiangxun.jpg" alt="750px电商竖版详情长图">
+            </div>
+            <p class="product-caption">淘宝标准750px宽度垂直详情长图，完整包含头屏、材质、场景、卖点、售后全板块，原图色彩完整保留。</p>
+        </section>
+
+        <!-- 小红书拼贴排版预留板块 -->
+        <h2 class="section-title" id="magazine">小红书图文排版作品</h2>
+        <div class="collage-grid">
+            <div class="collage-card card-big" data-key="小红书 图文 家居">
+                <img class="collage-img" src="xiangxun.jpg" alt="小红书种草图文">
+                <div class="collage-text">
+                    <div class="collage-num">01</div>
+                    <p class="collage-desc">家居产品种草图文排版（可自行修改文案）</p>
+                </div>
+            </div>
+            <div class="collage-card card-small1" data-key="小红书 细节 排版">
+                <img class="collage-img" src="xiangxun.jpg" alt="产品细节图文">
+                <div class="collage-text">
+                    <div class="collage-num">02</div>
+                    <p class="collage-desc">材质细节氛围感图文</p>
+                </div>
+            </div>
+            <div class="collage-card card-small2" data-key="小红书 场景 排版">
+                <img class="collage-img" src="xiangxun.jpg" alt="场景氛围图文">
+                <div class="collage-text">
+                    <div class="collage-num">03</div>
+                    <p class="collage-desc">居家场景种草拼贴版式</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 联系板块 -->
+        <h2 class="section-title" id="contact">联系我</h2>
+        <div class="block-card contact">
+            <input type="text" placeholder="姓名">
+            <input type="email" placeholder="联系邮箱">
+            <textarea rows="4" placeholder="求职/合作咨询"></textarea>
+            <button>发送留言</button>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 电商美工作品集 | 日式侘寂极简黑白灰版式
+    </footer>
+
+    <script>
+        // 漂浮几何视差滚动
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            document.querySelectorAll('.float-shape').forEach(item => {
+                item.style.transform = `translateY(${scrollY * 0.08}px)`;
+            })
+        })
+
+        // 作品弹窗
+        const modal = document.getElementById("imgModal");
+        const modalImg = document.getElementById("modalImg");
+        const closeModal = document.querySelector(".close-modal");
+        const allCards = document.querySelectorAll(".collage-card");
+        allCards.forEach(card => {
+            card.addEventListener("click", () => {
+                modalImg.src = card.querySelector("img").src;
+                modal.style.display = "flex";
+            })
+        })
+        closeModal.addEventListener("click", () => modal.style.display = "none");
+        modal.addEventListener("click", e => { if(e.target === modal) modal.style.display = "none"; })
+
+        // 作品搜索
+        const searchBtn = document.getElementById("searchBtn");
+        const searchInput = document.getElementById("searchInput");
+        function searchWork(){
+            let key = searchInput.value.trim().toLowerCase();
+            allCards.forEach(card=>{
+                let tag = card.dataset.key.toLowerCase();
+                if(key==""||tag.includes(key)) card.style.opacity=1;
+                else card.style.opacity=0;
+            })
+        }
+        searchBtn.addEventListener("click",searchWork);
+        searchInput.addEventListener("keydown",e=>{if(e.key==="Enter") searchWork();})
+
+        // 导航滚动高亮
+        const navLinks = document.querySelectorAll(".nav-menu a");
+        const sections = document.querySelectorAll("h2[id]");
+        window.addEventListener("scroll", ()=>{
+            let scrollPos = window.scrollY + 120;
+            sections.forEach(sec=>{
+                const top = sec.offsetTop;
+                const h = sec.offsetHeight;
+                if(scrollPos >= top && scrollPos < top + h){
+                    navLinks.forEach(a=>a.classList.remove("active"));
+                    document.querySelector(`.nav-menu a[href="#${sec.id}"]`).classList.add("active");
+                }
+            })
+        })
+    </script>
+</body>
+</html>

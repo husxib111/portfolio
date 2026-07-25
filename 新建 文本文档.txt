@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Independent Graphic Designer | Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        :root {
+            --off-white: #f7f6f3;
+            --dark-black: #1A1A1A;
+            --gray-mid: #888888;
+            --gray-light: #dddddd;
+            --gray-fade: #eeeeee;
+            --line-thin: 0.5px;
+        }
+        body {
+            background: var(--off-white);
+            color: var(--dark-black);
+            overflow-x: hidden;
+            position: relative;
+            /* 日式障子纸点阵条纹复合肌理底层 */
+            background-image: 
+                radial-gradient(#ddd 0.5px, transparent 0.5px),
+                linear-gradient(to right, rgba(200,200,200,0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(200,200,200,0.06) 1px, transparent 1px);
+            background-size: 22px 22px, 45px 45px, 45px 45px;
+            background-attachment: fixed;
+        }
+        /* 页面全局光影侧光分层 */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 68%, rgba(0,0,0,0.04) 100%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        /* 漂浮几何故障拖影元素容器 */
+        .float-geometry-wrap {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .float-shape {
+            position: absolute;
+            opacity: 0.09;
+            filter: drop-shadow(-3px 0 rgba(0,0,0,0.07)); /* 故障错位拖影 */
+            animation: floatLift 12s ease-in-out infinite alternate;
+        }
+        .circle-float {
+            width: 120px;
+            height: 120px;
+            border: var(--line-thin) solid var(--gray-mid);
+            border-radius: 50%;
+            top: 22vh;
+            left: 8%;
+            animation-delay: -2s;
+        }
+        .tri-float {
+            width: 0;
+            height: 0;
+            border-left: 70px solid transparent;
+            border-right: 70px solid transparent;
+            border-bottom: 110px solid var(--gray-light);
+            top: 65vh;
+            right: 10%;
+            animation-delay: -5s;
+        }
+        .line-float {
+            width: 180px;
+            height: 0.5px;
+            background: var(--gray-mid);
+            top: 40vh;
+            right: 20%;
+            animation-delay: -7s;
+        }
+        @keyframes floatLift {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(-40px) translateX(12px); }
+        }
+        /* 全局容器，屏幕居中，70%留白控制 */
+        .page-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 12vw; /* 左右超大留白，整体留白超70% */
+            position: relative;
+            z-index: 2;
+        }
+        /* 顶部导航栏 */
+        header {
+            border-bottom: var(--line-thin) solid var(--dark-black);
+            padding: 32px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-handwrite {
+            font-family: "Segoe Script", cursive;
+            font-size: 26px;
+            letter-spacing: 2px;
+            color: var(--dark-black);
+            text-decoration: none;
+        }
+        .nav-menu {
+            display: flex;
+            gap: 48px;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--gray-mid);
+            font-size: 14px;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-menu a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0.5px;
+            background: var(--dark-black);
+            left: 0;
+            bottom: -6px;
+            transition: width 0.3s ease;
+        }
+        .nav-menu a:hover {
+            color: var(--dark-black);
+        }
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        /* 顶部粒子波浪动态几何图案 */
+        .particle-wave-top {
+            margin: 64px 0 80px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .particle-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--dark-black);
+            border-radius: 50%;
+            animation: waveParticle 4s ease-in-out infinite alternate;
+        }
+        /* 粒子波浪高低错落动画 */
+        @keyframes waveParticle {
+            0% { transform: translateY(0); opacity: 0.3; }
+            50% { transform: translateY(-24px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 0.3; }
+        }
+        /* 简历区域 左侧竖排时间轴卡片 */
+        .resume-section {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 10vw;
+            margin-bottom: 90px;
+        }
+        .resume-card {
+            background: #fff;
+            padding: 40px 32px;
+            border: var(--line-thin) solid var(--gray-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .resume-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 22px rgba(0,0,0,0.05);
+        }
+        .silhouette-avatar {
+            width: 110px;
+            height: 140px;
+            background: var(--dark-black);
+            clip-path: polygon(45% 0, 85% 22%, 90% 75%, 60% 100%, 10% 100%, 0 60%, 10% 20%);
+            margin: 0 auto 24px;
+        }
+        .designer-name {
+            font-size: 24px;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+        .timeline-vertical {
+            border-left: var(--line-thin) solid var(--gray-mid);
+            padding-left: 20px;
+            margin-left: 12px;
+        }
+        .timeline-item {
+            margin-bottom: 22px;
+        }
+        .timeline-year {
+            font-size: 13px;
+            color: var(--gray-mid);
+            letter-spacing: 1px;
+        }
+        .timeline-text {
+            font-size: 14px;
+            margin-top: 4px;
+            line-height: 1.6;
+        }
+        /* 2.35:1电影宽幅商品Banner区域 */
+        .product-banner-section {
+            margin-bottom: 100px;
+        }
+        .wide-banner-wrap {
+            width: 100%;
+            aspect-ratio: 2.35 / 1;
+            overflow: hidden;
+            position: relative;
+            border-radius: 2px;
+        }
+        .wide-banner-img {
+            width: 110%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            /* 视差滚动基础 */
+            transition: transform 0.4s ease-out;
+        }
+        .wide-banner-wrap:hover .wide-banner-img {
+            transform: translateX(-5%);
+        }
+        /* 图片两侧羽化渐变 */
+        .banner-fade-mask {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--off-white) 0%, transparent 12%, transparent 88%, var(--off-white) 100%);
+            pointer-events: none;
+        }
+        /* 小红书错落拼贴网格区域 */
+        .magazine-grid-section {
+            margin-bottom: 120px;
+        }
+        .grid-title {
+            font-size: 20px;
+            letter-spacing: 1px;
+            margin-bottom: 40px;
+            padding-bottom: 10px;
+            border-bottom: var(--line-thin) solid var(--gray-light);
+        }
+        .collage-grid {
+            display: grid;
+            grid-template-areas:
+                "big small1"
+                "big small2";
+            gap: 24px;
+            grid-template-columns: 1.6fr 1fr;
+            grid-template-rows: 1fr 1fr;
+        }
+        .collage-card {
+            background: #fff;
+            border: var(--line-thin) solid var(--gray-light);
+            overflow: hidden;
+            padding-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .collage-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 8px 26px rgba(0,0,0,0.07);
+        }
+        .card-big {
+            grid-area: big;
+        }
+        .card-small1 {
+            grid-area: small1;
+        }
+        .card-small2 {
+            grid-area: small2;
+        }
+        .collage-img {
+            width: 100%;
+            height: 72%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: transform 0.4s ease;
+        }
+        .collage-card:hover .collage-img {
+            transform: scale(1.04);
+        }
+        .collage-num-title {
+            font-size: 32px;
+            font-weight: 500;
+            padding: 14px 20px 4px;
+            letter-spacing: 1px;
+        }
+        .collage-desc {
+            font-size: 13px;
+            color: var(--gray-mid);
+            padding: 0 20px;
+        }
+        /* 底部留白缓冲 */
+        footer {
+            height: 120px;
+            border-top: var(--line-thin) solid var(--gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: var(--gray-mid);
+            letter-spacing: 1px;
+        }
+        /* 移动端适配 */
+        @media (max-width:992px) {
+            .resume-section {
+                grid-template-columns: 1fr;
+            }
+            .collage-grid {
+                grid-template-areas:
+                    "big"
+                    "small1"
+                    "small2";
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+            }
+            .nav-menu {
+                gap: 24px;
+            }
+            .page-container {
+                padding: 0 6vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 漂浮故障拖影几何装饰层 -->
+    <div class="float-geometry-wrap">
+        <div class="float-shape circle-float"></div>
+        <div class="float-shape tri-float"></div>
+        <div class="float-shape line-float"></div>
+    </div>
+
+    <div class="page-container">
+        <!-- 顶部导航 -->
+        <header>
+            <a href="#" class="logo-handwrite">Studio Lumiere</a>
+            <nav class="nav-menu">
+                <a href="#resume">关于我</a>
+                <a href="#banner">作品</a>
+                <a href="#magazine">排版创作</a>
+                <a href="#contact">联系</a>
+            </nav>
+        </header>
+
+        <!-- 顶部波浪粒子动态几何图案 -->
+        <div class="particle-wave-top">
+            <!-- 自动生成错落粒子 -->
+            <div class="particle-dot" style="animation-delay:0s;"></div>
+            <div class="particle-dot" style="animation-delay:-0.3s;"></div>
+            <div class="particle-dot" style="animation-delay:-0.6s;"></div>
+            <div class="particle-dot" style="animation-delay:-0.9s;"></div>
+            <div class="particle-dot" style="animation-delay:-1.2s;"></div>
+            <div class="particle-dot" style="animation-delay:-1.5s;"></div>
+            <div class="particle-dot" style="animation-delay:-1.8s;"></div>
+            <div class="particle-dot" style="animation-delay:-2.1s;"></div>
+            <div class="particle-dot" style="animation-delay:-2.4s;"></div>
+            <div class="particle-dot" style="animation-delay:-2.7s;"></div>
+            <div class="particle-dot" style="animation-delay:-3s;"></div>
+            <div class="particle-dot" style="animation-delay:-3.3s;"></div>
+            <div class="particle-dot" style="animation-delay:-3.6s;"></div>
+            <div class="particle-dot" style="animation-delay:-3.9s;"></div>
+            <div class="particle-dot" style="animation-delay:-4.2s;"></div>
+            <div class="particle-dot" style="animation-delay:-4.5s;"></div>
+            <div class="particle-dot" style="animation-delay:-4.8s;"></div>
+            <div class="particle-dot" style="animation-delay:-5.1s;"></div>
+            <div class="particle-dot" style="animation-delay:-5.4s;"></div>
+            <div class="particle-dot" style="animation-delay:-5.7s;"></div>
+            <div class="particle-dot" style="animation-delay:-6s;"></div>
+            <div class="particle-dot" style="animation-delay:-6.3s;"></div>
+            <div class="particle-dot" style="animation-delay:-6.6s;"></div>
+            <div class="particle-dot" style="animation-delay:-6.9s;"></div>
+            <div class="particle-dot" style="animation-delay:-7.2s;"></div>
+            <div class="particle-dot" style="animation-delay:-7.5s;"></div>
+        </div>
+
+        <!-- 左侧简历竖排时间轴区域 -->
+        <section class="resume-section" id="resume">
+            <div class="resume-card">
+                <div class="silhouette-avatar"></div>
+                <h2 class="designer-name">LIN YUE</h2>
+                <div class="timeline-vertical">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2025 - NOW</div>
+                        <p class="timeline-text">独立平面视觉设计师<br>品牌版式 / 电商视觉</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2022 - 2025</div>
+                        <p class="timeline-text">品牌设计工作室<br>主视觉、画册、包装设计</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2018 - 2022</div>
+                        <p class="timeline-text">视觉传达设计专业<br>专注极简日式美学研究</p>
+                    </div>
+                </div>
+            </div>
+            <div></div> <!-- 右侧留白，提升70%留白占比 -->
+        </section>
+
+        <!-- 2.35:1电影宽幅商品Banner -->
+        <section class="product-banner-section" id="banner">
+            <div class="wide-banner-wrap">
+                <img class="wide-banner-img" src="xiangxun.jpg" alt="黑白肌理山景布料视觉">
+                <div class="banner-fade-mask"></div>
+            </div>
+        </section>
+
+        <!-- 小红书杂志拼贴网格区域 -->
+        <section class="magazine-grid-section" id="magazine">
+            <h3 class="grid-title">版式创作 · Magazine Collage</h3>
+            <div class="collage-grid">
+                <div class="collage-card card-big">
+                    <img class="collage-img" src="xiangxun.jpg" alt="家居黑白摄影">
+                    <div class="collage-num-title">01</div>
+                    <p class="collage-desc">家居侘寂风电商完整版式</p>
+                </div>
+                <div class="collage-card card-small1">
+                    <img class="collage-img" src="xiangxun.jpg" alt="产品细节摄影">
+                    <div class="collage-num-title">02</div>
+                    <p class="collage-desc">产品材质细节排版</p>
+                </div>
+                <div class="collage-card card-small2">
+                    <img class="collage-img" src="xiangxun.jpg" alt="场景氛围图">
+                    <div class="collage-num-title">03</div>
+                    <p class="collage-desc">氛围感场景图文拼贴</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 底部留白页脚 -->
+        <footer>
+            © 2026 Independent Graphic Designer | Monochrome Wabi-sabi Portfolio
+        </footer>
+    </div>
+
+    <!-- 滚动视差简易JS增强交互 -->
+    <script>
+        // 视差滚动漂浮几何
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            document.querySelectorAll('.float-shape').forEach(item => {
+                item.style.transform = `translateY(${scrollY * 0.08}px)`;
+            })
+        })
+        // 导航平滑滚动高亮简易逻辑
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                navLinks.forEach(l => l.style.color = '#888');
+                link.style.color = '#1A1A1A';
+            })
+        })
+    </script>
+</body>
+</html>
